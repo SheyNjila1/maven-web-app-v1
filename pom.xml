@@ -1,32 +1,40 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>in.ashokit</groupId>
-  <artifactId>01-maven-web-app</artifactId>
-  <packaging>war</packaging>
-  <version>3.0-SNAPSHOT</version>
-  <name>01-maven-web-app</name>
-  <url>http://maven.apache.org</url>
+  <groupId>YOUR_GROUP_ID</groupId>
+  <!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example "sonar-myphp-plugin" -->
+  <artifactId>YOUR_ARTIFACT_ID</artifactId>
+  <version>YOUR_VERSION</version>
+  
+  <!-- this is important for sonar-packaging-maven-plugin -->
+  <packaging>sonar-plugin</packaging>
  
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <!-- groupId has changed to 'org.sonarsource.api.plugin' starting on version 9.5 -->
+      <groupId>org.sonarsource.sonarqube</groupId>
+      <artifactId>sonar-plugin-api</artifactId>
+      <!-- minimal version of SonarQube to support. -->
+      <version>8.9</version>
+      <!-- mandatory scope -->
+      <scope>provided</scope>
     </dependency>
-    
   </dependencies>
+ 
   <build>
-    <finalName>01-maven-web-app</finalName>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.1</version>
+        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+        <artifactId>sonar-packaging-maven-plugin</artifactId>
+        <version>1.18.0.372</version>
+        <extensions>true</extensions>
+        <configuration>
+          <!-- the entry-point class that extends org.sonar.api.SonarPlugin -->
+          <pluginClass>com.mycompany.sonar.reference.ExamplePlugin</pluginClass>
+           
+          <!-- advanced properties can be set here. See paragraph "Advanced Build Properties". -->
+        </configuration>
       </plugin>
     </plugins>
   </build>
 </project>
-
-
-
